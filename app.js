@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const db =require('./models');
@@ -8,6 +9,7 @@ db.sequelize.sync().then(() => { console.log('db연결성공');}).catch(console.
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 app.get('/', (req, res) => {
     res.send('hello express');
 });
@@ -25,6 +27,11 @@ app.get('/posts', (req, res) => {
     ]);
 });
 
+app.use(cors({
+    origin: '*',
+    // credentials: false,
+    // origin: 'http://nordbird.com'
+}));
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 

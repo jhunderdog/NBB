@@ -16,9 +16,10 @@ router.post('/', async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 12);
         await User.create({
             email: req.body.email,
-            nickanme: req.body.nickanme,
+            nickname: req.body.nickname,
             password: hashedPassword,
         });
+        res.setHeader('Access-Control-Allow-Origin', '*')
         res.status(201).send('ok');
     } catch(error){
         console.error(error);
@@ -27,3 +28,5 @@ router.post('/', async (req, res, next) => {
     
 //POST /USER
 });
+
+module.exports = router;
