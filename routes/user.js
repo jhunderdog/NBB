@@ -46,8 +46,14 @@ router.post('/', async (req, res, next) => {
         console.error(error);
         next(error); // status 500
     }
-    
-//POST /USER
+
 });
+//POST /USER
+router.post('/user/logout', (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.send('ok');
+})
+
 
 module.exports = router;
