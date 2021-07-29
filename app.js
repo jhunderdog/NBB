@@ -42,8 +42,8 @@ app.get('/posts', (req, res) => {
 });
 
 app.use(cors({
-    origin: '*',
-    // credentials: false,
+    origin: 'http://localhost:3060',
+    credentials: true,
     // origin: 'http://nordbird.com'
 }));
 app.use('/post', postRouter);
