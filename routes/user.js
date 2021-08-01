@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
                 }, {
                     model: User,
                     as: 'Followers',
-                    attributes: ['id'],
+                    attributes: ['id'], 
                 }]
             })     
         res.status(200).json(fullUserWithoutPassword);
@@ -90,7 +90,7 @@ router.post('/', isNotLoggedIn, async (req, res, next) => {
             nickname: req.body.nickname,
             password: hashedPassword,
         });
-        res.setHeader('Access-Control-Allow-Origin', '*')
+        // res.setHeader('Access-Control-Allow-Origin', '*')
         res.status(201).send('ok');
     } catch(error){
         console.error(error);
@@ -105,5 +105,17 @@ router.post('/logout', isLoggedIn, (req, res) => {
     res.send('ok');
 })
 
-
+router.patch('/nickname', isLoggedIn, async (req, res ,next) => {
+    try {
+        await User.update({
+            nickname: req.body.nickname,
+        }, {
+            where: { id: req.user.id }
+        });
+        res.status(200).json({ nickname: req.body.nickname});
+    } catch(error){
+        console.error(error);
+        next(error);
+    }
+});
 module.exports = router;
