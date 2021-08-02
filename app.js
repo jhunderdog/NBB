@@ -9,14 +9,19 @@ const db =require('./models');
 const passportConfig = require('./passport');
 const passport = require('passport');
 const morgan = require('morgan');
+const path = require('path');
 const dotenv = require('dotenv');
 const app = express();
 
 db.sequelize.sync().then(() => { console.log('db연결성공');}).catch(console.error);
 passportConfig();
 dotenv.config();
+
+
+app.use('/', express.static(path.join(__dirname, 'uploads')))
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     saveUninitialized: false, 
