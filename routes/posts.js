@@ -4,6 +4,7 @@ const { Post, User, Image, Comment } = require('../models');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => { //GET //posts
+    console.log(req.headers);
     try {
         const where = {};
         if (parseInt(req.query.lastId, 10)) { //초기 로딩이 아닐 때
@@ -42,7 +43,7 @@ router.get('/', async (req, res, next) => { //GET //posts
                 }]
             }]
         });
-        console.log(posts);
+        // console.log(posts);
         res.status(200).json(posts);
     } catch(error) {
         console.error(error);
