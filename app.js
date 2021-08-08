@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
+const hashtagRouter = require('./routes/hashtag');
 const db =require('./models');
 const passportConfig = require('./passport');
 const passport = require('passport');
@@ -57,6 +58,7 @@ app.use(cors({
 app.use('/posts', postsRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
+app.use('/hashtag', hashtagRouter);
 
 // app.use((err, req, res, next) => {
 
